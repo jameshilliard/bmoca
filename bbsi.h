@@ -19,6 +19,7 @@
 
 #include <linux/netdevice.h>
 #include <linux/spi/spi.h>
+#include <linux/vmalloc.h>
 
 #ifndef KSEG1
 #define KSEG1 0  // just to appease non-MIPS CPUs. Not really used.
@@ -260,7 +261,7 @@ static void kerSysBcmSpiSlaveWriteBuf(struct spi_device *spi, uint32_t addr, con
 		return;
 	}
 
-	t = kmalloc(nelems * sizeof(struct spi_transfer) * 2, GFP_KERNEL);
+	t = vmalloc(nelems * sizeof(struct spi_transfer) * 2);
 	if (!t) {
 		pr_warn("spi writebuf: out of memory\n");
 		return;
@@ -291,7 +292,7 @@ static void kerSysBcmSpiSlaveWriteBuf(struct spi_device *spi, uint32_t addr, con
 	__pollstatus(spi);
 
 	spi_bus_unlock(spi->master);
-	kfree(t);
+	vfree(t);
 }
 
 #endif // __BBSI_H
