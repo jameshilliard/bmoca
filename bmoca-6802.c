@@ -322,7 +322,6 @@ static void moca_hw_init(struct moca_priv_data *priv, int action)
 	MOCA_WR(0x10800000, 0x03);       // EMUX_CNTRL
 	MOCA_WR(0x1080000c, 0x11);       // RGMII_0_CNTRL
 	MOCA_WR(0x10800014, 0xc0);       // RGMII_0_RX_CLK_DELAY_CNTRL
-	MOCA_WR(0x10800808, 0x010000db); // UMAC_CMD
 
 	MOCA_WR(0x104040a4, 0x01);       // GENERAL_CTRL_NO_SCAN_0
 	MOCA_WR(0x10404100, 0x11110011); // PIN_MUX_CTRL_0
